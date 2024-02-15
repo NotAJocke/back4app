@@ -2,12 +2,15 @@ package main
 
 import (
 	"fmt"
-	"time"
+	"net/http"
 )
 
 func main() {
-	for {
-		fmt.Println("Hello, World!")
-		time.Sleep(5 * time.Second)
-	}
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "Hello, World")
+	})
+
+	fmt.Println("Server started at http://localhost:8080")
+
+	http.ListenAndServe(":8080", nil)
 }
